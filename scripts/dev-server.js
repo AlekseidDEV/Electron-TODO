@@ -6,7 +6,7 @@ const Path = require('path');
 const Chalk = require('chalk');
 const Chokidar = require('chokidar');
 const Electron = require('electron');
-const compileTs = require('./private/tsc');
+// const compileTs = require('./private/tsc');
 const FileSystem = require('fs');
 const { EOL } = require('os');
 
@@ -26,14 +26,6 @@ async function startRenderer() {
 
 async function startElectron() {
     if (electronProcess) { // single instance lock
-        return;
-    }
-
-    try {
-        await compileTs(Path.join(__dirname, '..', 'src', 'main'));
-    } catch {
-        console.log(Chalk.redBright('Could not start Electron because of the above typescript error(s).'));
-        electronProcessLocker = false;
         return;
     }
 
@@ -72,21 +64,21 @@ function restartElectron() {
     }
 }
 
-function copyStaticFiles() {
-    copy('static');
-}
+// function copyStaticFiles() {
+//     copy('static');
+// }
 
 /*
 The working dir of Electron is build/main instead of src/main because of TS.
 tsc does not copy static files, so copy them over manually for dev server.
 */
-function copy(path) {
-    FileSystem.cpSync(
-        Path.join(__dirname, '..', 'src', 'main', path),
-        Path.join(__dirname, '..', 'build', 'main', path),
-        { recursive: true }
-    );
-}
+// function copy(path) {
+//     FileSystem.cpSync(
+//         Path.join(__dirname, '..', 'src', 'main', path),
+//         Path.join(__dirname, '..', 'build', 'main', path),
+//         { recursive: true }
+//     );
+// }
 
 function stop() {
     viteServer.close();
@@ -101,7 +93,7 @@ async function start() {
     const devServer = await startRenderer();
     rendererPort = devServer.config.server.port;
 
-    copyStaticFiles();
+    // copyStaticFiles();
     startElectron();
 
     const path = Path.join(__dirname, '..', 'src', 'main');

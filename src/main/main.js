@@ -10,7 +10,8 @@ function createWindow () {
       preload: join(__dirname, 'preload.js'),
       nodeIntegration: false,
       contextIsolation: true,
-    }
+    },
+    sendbox: true,
   });
 
   if (process.env.NODE_ENV === 'development') {
@@ -47,6 +48,6 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 });
 
-ipcMain.on('message', (event, message) => {
-  console.log(message);
+ipcMain.once('message', (event, message) => {
+  console.log()
 })

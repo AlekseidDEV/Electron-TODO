@@ -1,9 +1,8 @@
 <template>
-  <p>hello</p>
+  <router-view/>
 </template>
 
 <script setup>
-
 
 </script>
 
