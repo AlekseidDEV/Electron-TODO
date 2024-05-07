@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 
 let words = ref('')
 let index = 0
@@ -13,19 +13,23 @@ let index = 0
 let wordHello = 'User, welcome to the MyTodos application'
 let loadLetter = 'Loading, please wait'
 
-const letterWriteFucn = () => {
-  const intervalLetter = setInterval(() => {
-    if (index < wordHello.length) {
-      words.value += wordHello.split('')[index]
-      index++
-    } else {
-      clearInterval(intervalLetter)
-    }
-  }, 50)
-}
+onMounted(() => {
+  const letterWriteFucn = () => {
+    const intervalLetter = setInterval(() => {
+      if (index < wordHello.length) {
+        words.value += wordHello.split('')[index]
+        index++
+      } else {
+        clearInterval(intervalLetter)
+      }
+    }, 50)
+  }
 
 
-letterWriteFucn()
+  letterWriteFucn()
+
+})
+
 </script>
 
 <style scoped>

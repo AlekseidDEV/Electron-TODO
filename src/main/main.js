@@ -11,7 +11,7 @@ function createWindow () {
       nodeIntegration: false,
       contextIsolation: true,
     },
-    sendbox: true,
+    icon: path.join(__dirname, 'icon.ico'),
   });
 
   if (process.env.NODE_ENV === 'development') {
@@ -48,6 +48,3 @@ app.on('window-all-closed', function () {
   if (process.platform !== 'darwin') app.quit()
 });
 
-ipcMain.once('message', (event, message) => {
-  console.log()
-})

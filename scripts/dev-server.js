@@ -64,22 +64,6 @@ function restartElectron() {
     }
 }
 
-// function copyStaticFiles() {
-//     copy('static');
-// }
-
-/*
-The working dir of Electron is build/main instead of src/main because of TS.
-tsc does not copy static files, so copy them over manually for dev server.
-*/
-// function copy(path) {
-//     FileSystem.cpSync(
-//         Path.join(__dirname, '..', 'src', 'main', path),
-//         Path.join(__dirname, '..', 'build', 'main', path),
-//         { recursive: true }
-//     );
-// }
-
 function stop() {
     viteServer.close();
     process.exit();
@@ -93,7 +77,6 @@ async function start() {
     const devServer = await startRenderer();
     rendererPort = devServer.config.server.port;
 
-    // copyStaticFiles();
     startElectron();
 
     const path = Path.join(__dirname, '..', 'src', 'main');
