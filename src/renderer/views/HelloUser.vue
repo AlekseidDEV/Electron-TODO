@@ -4,57 +4,68 @@
   </div>
 </template>
 
-<script setup>
-import {onMounted, ref} from "vue";
+<script>
+import {ref} from "vue";
 import router from "../router";
 
-let words = ref('')
-let index = 0
-let animateIndex = 0
+export default {
+  data() {
+    let words = ''
+    let index = 0
+    let animateIndex = 0
 
-onMounted(() => {
-  const checkCoockie = () => {
-    if(document.cookie === ''){
-      router.push('/authorized')
-    } else {
-      console.log('welcom')
+    return {
+      words,
+      index,
+      animateIndex,
     }
-  }
+  },
 
-  const backWrite = () => {
-    const backInterval = setInterval(() => {
-      if(index !== 0){
-        index--
-        words.value = words.value.slice(0, -1)
+  methods: {
+    letterWriteFucn(wordHello, time) {
+      const intervalLetter = setInterval(() => {
+        if (this.index < wordHello.length) {
+          this.words += wordHello.split('')[this.index]
+          this.index++
+        } else {
+          clearInterval(intervalLetter)
+          setTimeout(() => {
+            if (this.animateIndex === 0) {
+              this.backWrite()
+              this.animateIndex++
+            } else {
+              this.checkCoockie()
+            }
+          }, 2500)
+        }
+      }, time)
+    },
+
+    backWrite() {
+      const backInterval = setInterval(() => {
+        if (this.index !== 0) {
+          this.index--
+          this.words = this.words.slice(0, -1)
+        } else {
+          clearInterval(backInterval)
+          this.letterWriteFucn('Loading, please wait', 28)
+        }
+      }, 10)
+    },
+
+    checkCoockie() {
+      if (document.cookie === '') {
+        router.push('/authorized')
       } else {
-        clearInterval(backInterval)
-        letterWriteFucn('Loading, please wait', 25)
+        console.log('welcom')
       }
-    }, 10)
+    }
+  },
+
+  mounted() {
+    this.letterWriteFucn('User, welcome to the MyTodos application', 50)
   }
-
-  const letterWriteFucn = (wordHello, time) => {
-    const intervalLetter = setInterval(() => {
-      if (index < wordHello.length) {
-        words.value += wordHello.split('')[index]
-        index++
-      } else {
-        clearInterval(intervalLetter)
-        setTimeout(() => {
-          if(animateIndex === 0){
-            backWrite()
-            animateIndex++
-          } else {
-            checkCoockie()
-          }
-        }, 2500)
-      }
-    }, time)
-  };
-
-    letterWriteFucn('User, welcome to the MyTodos application', 50)
-})
-
+}
 </script>
 
 <style scoped>
@@ -66,7 +77,7 @@ onMounted(() => {
   background: linear-gradient(72deg, #4ad457, #1798e8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
-.typing{
+.typing {
   font-family: 'Poppins';
   font-weight: 800;
   color: white;
