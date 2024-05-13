@@ -2,29 +2,83 @@
   <div class="main_page">
     <div class="wrapper_form">
       <h1>Login to your account</h1>
-      <form>
+      <form @submit.prevent="authorized">
         <div class="wrapper_input">
-          <input class="input" type="text" placeholder="your name">
-          <input class="input" type="password" placeholder="password">
+          <input class="input"
+                 type="email"
+                 placeholder="your email"
+                 v-model.lazy="formLogin.login"
+                 required>
+          <div class="wrapper_password">
+            <input
+                class="input"
+                :type="eyeClick ? 'text' : 'password'"
+                placeholder="password"
+                v-model="formLogin.password"
+                >
+            <div class="icon_eye" @click="eyeClick = !eyeClick">
+              <v-icon class="eye" name="io-eye-sharp" fill="#0d9fee" v-if="eyeClick"/>
+              <v-icon v-else class="eye" name="io-eye-off" fill="#0d9fee"/>
+            </div>
+          </div>
         </div>
-        <button type="submit">
+        <button>
             log in
         </button>
-        <p class="register_link">or register</p>
       </form>
 
       <img class="position_img_left" src="../public/Group%2043.png" alt="img">
       <img class="position_img_rigth" src="../public/Group%2046.png" alt="img">
     </div>
 
+    <p class="register_link">or register</p>
+
   </div>
 </template>
 
 <script>
+import router from "../router";
 
+  export default {
+    data(){
+      let eyeClick = false
+
+      let formLogin = {
+        login: '',
+        password: ''
+      }
+
+      return{
+        eyeClick,
+        formLogin
+      }
+    },
+
+    methods: {
+      authorized(){
+        if(this.formLogin.login === '' && this.formLogin.password === ''){
+          console.log('no')
+        }else {
+          router.push('/ManePage')
+        }
+      }
+    },
+  }
 </script>
 
 <style scoped>
+
+.icon_eye{
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translate(0%, -50%);
+  cursor: pointer;
+}
+
+.wrapper_password{
+  position: relative;
+}
   .wrapper_form{
     max-width: 900px;
     width: 100%;
@@ -105,6 +159,7 @@
 
   .main_page{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
@@ -121,7 +176,7 @@
     bottom: -350px;
     right: -140px;
   }
-  
+
   @media (max-width: 1350px) {
       .position_img_left,
       .position_img_rigth{
@@ -139,5 +194,4 @@
       display: none;
     }
   }
-
 </style>
