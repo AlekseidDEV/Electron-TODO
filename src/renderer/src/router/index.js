@@ -15,11 +15,11 @@ const routes = [
         name: 'autho',
         component: AutorizedPage
     },
-    // {
-    //     path: '/main',
-    //     name: 'appMain',
-    //     component: ManePage
-    // }
+    {
+        path: '/main-page',
+        name: 'appMain',
+        component: ManePage
+    }
 ]
 
 const router = createRouter({

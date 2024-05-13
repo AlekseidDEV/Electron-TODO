@@ -59,7 +59,7 @@ import router from "../router";
         if(this.formLogin.login === '' && this.formLogin.password === ''){
           console.log('no')
         }else {
-          router.push('/ManePage')
+          router.push('/main-page')
         }
       }
     },
