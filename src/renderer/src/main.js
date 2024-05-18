@@ -1,17 +1,17 @@
 import { createApp } from 'vue'
 
-import './assets/style/style.css';
+import './assets/style/style.css'
 import App from './App.vue'
-import { OhVueIcon, addIcons } from "oh-vue-icons";
-import { IoEyeSharp, IoEyeOff } from "oh-vue-icons/icons";
+import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import { IoEyeSharp, IoEyeOff } from 'oh-vue-icons/icons'
 
-addIcons(IoEyeSharp, IoEyeOff )
+addIcons(IoEyeSharp, IoEyeOff)
 
-import router from "./router";
+import router from './router'
 
-const app = createApp(App);
+const app = createApp(App)
+
+app.component('VIcon', OhVueIcon)
 
 app.use(router)
-app.component('v-icon', OhVueIcon)
-app.mount('#app');
-
+app.mount('#app')

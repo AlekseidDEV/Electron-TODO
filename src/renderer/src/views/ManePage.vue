@@ -1,3 +1,1 @@
-<template>
-  hello main page
-</template>
+<template>hello main page</template>

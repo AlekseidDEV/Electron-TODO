@@ -5,8 +5,7 @@
 </template>
 
 <script>
-import {ref} from "vue";
-import router from "../router";
+import router from '../router'
 
 export default {
   data() {
@@ -17,8 +16,12 @@ export default {
     return {
       words,
       index,
-      animateIndex,
+      animateIndex
     }
+  },
+
+  mounted() {
+    this.letterWriteFucn('User, welcome to the MyTodos application', 50)
   },
 
   methods: {
@@ -60,10 +63,6 @@ export default {
         console.log('welcom')
       }
     }
-  },
-
-  mounted() {
-    this.letterWriteFucn('User, welcome to the MyTodos application', 50)
   }
 }
 </script>
@@ -73,8 +72,17 @@ export default {
   position: relative;
   height: 100vh;
   background: red;
-  background: -webkit-linear-gradient(72deg, #4ad457, #1798e8, #8b16ca); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(72deg, #4ad457, #1798e8); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: -webkit-linear-gradient(
+    72deg,
+    #4ad457,
+    #1798e8,
+    #8b16ca
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    72deg,
+    #4ad457,
+    #1798e8
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .typing {
