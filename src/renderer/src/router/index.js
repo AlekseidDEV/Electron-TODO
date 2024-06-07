@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 import HelloUser from '../views/HelloUser.vue'
 import AutorizedPage from '../views/AutorizedPage.vue'
-import ManePage from '../views/ManePage.vue'
+import ManePage from '../views/MainPage.vue'
 
 const routes = [
   {
@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: '/main-page',
-    name: 'appMain',
+    name: 'appIndex',
     component: ManePage
   }
 ]
