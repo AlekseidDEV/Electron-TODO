@@ -1,9 +1,10 @@
 <script>
 import ListView from '../ui/task/ListView.vue';
 import TaskListView from "../ui/task/TaskListView.vue";
+import EmptyDetail from "../ui/task/EmptyDetail.vue";
 export default{
     name: 'Task',
-    components: {ListView, TaskListView},
+    components: {ListView, TaskListView, EmptyDetail},
 }
 </script>
 
@@ -11,7 +12,7 @@ export default{
     <div class="wrapper_block_page">
         <ListView/>
         <TaskListView/>
-        <div>1</div>
+        <EmptyDetail/>
     </div>
 </template>
 

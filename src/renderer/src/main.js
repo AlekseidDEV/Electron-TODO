@@ -1,23 +1,25 @@
-import { createApp } from 'vue'
+import {createApp} from 'vue'
 
 import './assets/style/style.css'
 import 'bootstrap/dist/css/bootstrap.css'
+import store from "./store";
 
 import App from './App.vue'
-import { OhVueIcon, addIcons } from 'oh-vue-icons'
+import {OhVueIcon, addIcons} from 'oh-vue-icons'
 import {
-    IoEyeSharp,
-    IoEyeOff, IoCheckbox,
-    BiCalendarWeekFill,
-    MdAlarmaddRound,
-    BiGrid,
-    BiCalendarDay,
-    BiCalendar2Date,
-    BiCalendar2Month,
-    HiSolidChevronRight,
-    BiPlusLg,
+  IoEyeSharp,
+  IoEyeOff, IoCheckbox,
+  BiCalendarWeekFill,
+  MdAlarmaddRound,
+  BiGrid,
+  BiCalendarDay,
+  BiCalendar2Date,
+  BiCalendar2Month,
+  HiSolidChevronRight,
+  BiPlusLg,
   FaTrashAlt,
-  BiCheckSquare
+  BiCheckSquare,
+  OiSidebarCollapse
 } from 'oh-vue-icons/icons'
 import router from './router'
 
@@ -32,12 +34,14 @@ addIcons(
   HiSolidChevronRight,
   BiPlusLg,
   FaTrashAlt,
-  BiCheckSquare
+  BiCheckSquare,
+  OiSidebarCollapse
 )
 
 const app = createApp(App)
 
 app.component('VIcon', OhVueIcon)
 
+app.use(store)
 app.use(router)
 app.mount('#app')

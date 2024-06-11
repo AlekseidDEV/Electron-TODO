@@ -1,23 +1,28 @@
 <script>
 export default {
   name: "ListView",
+
   data() {
     return {
+      profile: this.$store.getters['getUserProfile'],
       btnsDays: [
         {
           name: 'Сегодня',
           icon: 'bi-calendar-day',
-          path: ''
+          path: '',
+          taskCount: 0,
         },
         {
           name: 'Следующие 7 дней',
           icon: 'bi-calendar2-date',
-          path: ''
+          path: '',
+          taskCount: 0
         },
         {
           name: 'В этом месяце',
           icon: 'bi-calendar2-month',
-          path: ''
+          path: '',
+          taskCount: 0
         }
       ],
       btnsDropDown: [
@@ -38,14 +43,54 @@ export default {
         {
           name: 'Выполнено',
           icon: 'bi-check-square',
-          path: '#'
+          path: '#',
+          taskCount: 0
         },
         {
           name: 'Корзина',
           icon: 'fa-trash-alt',
-          path: '#'
+          path: '#',
+          taskCount: 0
         }
       ]
+    }
+  },
+  computed: {
+    getDayTaskCount() {
+      return this.profile.dayNowTask.length
+    },
+    getWeekTaskCount() {
+      return this.profile.weekTask.length
+    },
+    getMonthTaskCount() {
+      return this.profile.monthTask.length
+    },
+    getCompleteCount(){
+      return this.profile.completedTask.length
+    },
+    getTrashCount(){
+      return this.profile.trashTask.length
+    }
+  },
+
+  mounted() {
+    this.setCounts()
+  },
+
+  methods: {
+    setCounts() {
+      this.btnsDays.forEach((btn) => {
+        if (btn.name === 'Сегодня') {
+          btn.taskCount = this.getDayTaskCount
+        } else if (btn.name === 'Следующие 7 дней') {
+          btn.taskCount = this.getWeekTaskCount
+        } else {
+          btn.taskCount = this.getMonthTaskCount
+        }
+      })
+
+      this.btnsStatusTodo[0].taskCount = this.getCompleteCount
+      this.btnsStatusTodo[1].taskCount = this.getTrashCount
     }
   }
 };
@@ -65,7 +110,7 @@ export default {
           scale="1.1"
         />
         <span class="ps-2 btn-name">{{ btn.name }}</span>
-        <span class="counter-task position-absolute">5</span>
+        <span class="counter-task position-absolute">{{ btn.taskCount }}</span>
       </div>
     </div>
 
@@ -97,16 +142,17 @@ export default {
           scale="1.1"
         />
         <span class="ps-2 btn-name">{{ btn.name }}</span>
-        <span class="counter-task position-absolute">5</span>
+        <span class="counter-task position-absolute">{{btn.taskCount}}</span>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.btn-name{
-  font-size: 15px;
+.btn-name {
+  font-size: 14px;
 }
+
 .wrapper-list-view {
   max-width: 260px;
   width: 100%;
