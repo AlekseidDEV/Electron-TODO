@@ -1,36 +1,58 @@
 <script>
 export default {
   name: "PanelControl",
+  emits: ['visibleBlock'],
   data() {
     return {
       btnArray: [
         {
-          title: "task",
+          title: "Task",
           icon: "io-checkbox",
           isShowBlock: true,
-          size: "1.4",
+          size: "1.3",
+          colorDefault: '#b9b3b3',
+          colorActive: '#0d9fee'
         },
         {
-          title: "calendar",
+          title: "Calendar",
           icon: "bi-calendar-week-fill",
           isShowBlock: false,
-          size: "1.4",
+          size: "1.3",
+          colorDefault: '#b9b3b3',
+          colorActive: '#0d9fee'
         },
         {
-          title: "pomodoro",
+          title: "Pomodoro",
           icon: "md-alarmadd-round",
           isShowBlock: false,
-          size: "1.4",
+          size: "1.3",
+          colorDefault: '#b9b3b3',
+          colorActive: '#0d9fee'
         },
         {
-          title: "matrix",
+          title: "Matrix",
           icon: "bi-grid",
           isShowBlock: false,
-          size: "1.4",
+          size: "1.3",
+          colorDefault: '#b9b3b3',
+          colorActive: '#0d9fee'
         },
       ],
     };
   },
+
+  methods: {
+    changeBlock(itemActive){
+      this.btnArray.forEach((btn) => {
+        if(btn.title === itemActive){
+          btn.isShowBlock = true
+          this.$emit('visibleBlock', itemActive)
+        }else{
+          btn.isShowBlock = false
+        }
+      })
+    }
+  }
 };
 </script>
 
@@ -39,23 +61,30 @@ export default {
     <div class="link_block">
         <span class="logo"><span class="stub_user"></span></span>
       <div class="link_wrapper">
-        <p class="wrapper_icon" v-for="item of btnArray" :key="item.title">
+        <p class="wrapper_icon" v-for="item of btnArray" :key="item.title" :title="item.title">
           <v-icon
             :class="item.title"
             :name="item.icon"
-            fill="#0d9fee"
+            :fill="item.isShowBlock ? item.colorActive : item.colorDefault"
             :scale="item.size"
+            @click="changeBlock(item.title)"
           />
         </p>
       </div>
-    </div>
-    <div>
-      1
     </div>
   </div>
 </template>
 
 <style scoped>
+
+.Task:hover,
+.Calendar:hover,
+.Pomodoro:hover,
+.Matrix:hover
+{
+  fill: grey;
+}
+
 .wrapper_block {
   display: flex;
   height: 100vh;
@@ -70,14 +99,14 @@ export default {
 .link_block {
   padding: 10px 10px;
   background: #f9f9f9;
-  border-right: 1px solid #b9b3b3;
+  border-right: 1px solid #e6e6e6;
 }
 
 .link_wrapper{
     margin-top: 20px;
     display: flex;
     flex-direction: column;
-    gap: 20px 0px;
+    gap: 8px 0px;
 }
 
 .logo{
